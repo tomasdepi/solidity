@@ -1,16 +1,14 @@
 pragma solidity 0.4.24;
 
-contract MessageStore{
+import "./Ownable.sol";
+
+contract MessageStore is Ownable{
     
-    address private owner;
     string private message;
     
-    constructor() public{
-        owner = msg.sender; // msg.sender es el que ejecuta la transaccion dentro de la red
-    }
-    
     //como esto cambia valores, es neceario que los minadores verifiquen la transaccion
-    function setMessage(string newMessage) public {
+    function setMessage(string newMessage) public payable {
+        require (msg.value == 3 ether);
         message = newMessage;
     }
     
@@ -18,3 +16,5 @@ contract MessageStore{
         return message;
     }
     
+    
+}
